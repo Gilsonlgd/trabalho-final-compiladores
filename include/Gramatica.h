@@ -1,9 +1,10 @@
 #ifndef GRAMATICA_H
 #define GRAMATICA_H
 
-#include <string>
 #include <vector>
+#include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 class Gramatica {
 public:
@@ -13,13 +14,25 @@ public:
     };
 
     Gramatica();
-    bool adicionarProducao(char naoTerminal, const std::string& producao);
+
+    bool addNaoTerminal(char naoTerminal);
+    bool addTerminal(char terminal);
+    void defSimboloInicial(char simboloInicial);
+
+    bool addProducao(char naoTerminal, const std::string& producao);
     bool ehValida() const;
-    const std::vector<Producao>& obterProducoes() const;
+
+    const std::vector<Producao>& getProducoes() const;
+    const std::unordered_set<char>& getNaoTerminais() const;
+    const std::unordered_set<char>& getTerminais() const;
+    char getSimboloInicial() const;
 
 private:
     std::vector<Producao> producoes;
     std::unordered_map<char, std::vector<std::string>> mapaProducoes;
+    std::unordered_set<char> naoTerminais;
+    std::unordered_set<char> terminais;
+    char simboloInicial;
 };
 
 #endif // GRAMATICA_H

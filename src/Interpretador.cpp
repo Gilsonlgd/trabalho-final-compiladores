@@ -7,7 +7,7 @@ bool Interpretador::reconhecer(const std::string& palavra) {
     std::string atual = "S";  // Assumindo que 'S' é o símbolo inicial
     for (char ch : palavra) {
         bool casou = false;
-        for (const auto& prod : gramatica.obterProducoes()) {
+        for (const auto& prod : gramatica.getProducoes()) {
             if (prod.naoTerminal == atual.back() && prod.producao.front() == ch) {
                 atual.pop_back();
                 atual += prod.producao.substr(1);
