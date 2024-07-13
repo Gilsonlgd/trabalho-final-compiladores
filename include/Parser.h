@@ -8,7 +8,7 @@ class Parser {
 public:
     Parser(const std::string& nomeArquivo);
     bool parse();
-    const Gramatica& obterGramatica() const;
+    const Gramatica& getGramatica() const;
 
 private:
     std::string nomeArquivo;

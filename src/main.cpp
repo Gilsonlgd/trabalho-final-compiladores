@@ -11,7 +11,7 @@ int main() {
         return 1;
     }
 
-    Interpretador interpretador(parser.obterGramatica());
+    Interpretador interpretador(parser.getGramatica());
     std::string palavra;
     std::cout << "Digite uma palavra para ser validada: ";
     std::cin >> palavra;

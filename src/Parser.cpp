@@ -52,6 +52,6 @@ bool Parser::parse() {
     return gramatica.ehValida();
 }
 
-const Gramatica& Parser::obterGramatica() const {
+const Gramatica& Parser::getGramatica() const {
     return gramatica;
 }
