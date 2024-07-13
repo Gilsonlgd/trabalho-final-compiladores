@@ -2,6 +2,6 @@ S A B C
 a b c
 S
 S -> aA
-A -> bB
+A -> Bb
 B -> cC
 C -> a

@@ -1,10 +1,11 @@
 #include "../include/Interpretador.h"
 #include <iostream>
+#include <string>
 
 Interpretador::Interpretador(const Gramatica& gramatica) : gramatica(gramatica) {}
 
 bool Interpretador::reconhecer(const std::string& palavra) {
-    std::string atual = "S";  // Assumindo que 'S' é o símbolo inicial
+    std::string atual = std::string(1, gramatica.getSimboloInicial());
     for (char ch : palavra) {
         bool casou = false;
         for (const auto& prod : gramatica.getProducoes()) {

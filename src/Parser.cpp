@@ -39,17 +39,28 @@ bool Parser::parse() {
         std::istringstream issProducao(linha);
         char naoTerminal;
         std::string seta, producao;
+
+        /* Verifica o formato da produção lida */
         if (!(issProducao >> naoTerminal >> seta >> producao) || seta != "->") {
             std::cerr << "Erro ao ler linha: " << linha << std::endl;
             return false;
         }
+        
         if (!gramatica.addProducao(naoTerminal, producao)) {
-            std::cerr << "Producao invalida: " << producao << std::endl;
+            std::cout << "Erro de especificacao da gramatica." << std::endl;
+            std::cout << "Producao invalida: " << naoTerminal << " -> " << producao << std::endl;
+            gramatica.printErro();
             return false;
         }
     }
 
-    return gramatica.ehValida();
+    if (!gramatica.ehValida()) {
+        std::cout << "Erro de especificacao da gramatica." << std::endl;
+        gramatica.printErro();
+        return false;
+    }
+
+    return true;
 }
 
 const Gramatica& Parser::getGramatica() const {

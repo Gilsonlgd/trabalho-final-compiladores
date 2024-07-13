@@ -7,7 +7,6 @@ int main() {
     Parser parser(nomeArquivo);
 
     if (!parser.parse()) {
-        std::cerr << "Falha ao analisar a gramatica." << std::endl;
         return 1;
     }
 

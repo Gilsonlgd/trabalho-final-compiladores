@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <iostream>
 
 class Gramatica {
 public:
@@ -26,12 +27,17 @@ public:
     const std::unordered_set<char>& getNaoTerminais() const;
     const std::unordered_set<char>& getTerminais() const;
     char getSimboloInicial() const;
+    
+    void printErro() const;
+    void setErro(const std::string& erro) const;
 
 private:
     std::vector<Producao> producoes;
     std::unordered_map<char, std::vector<std::string>> mapaProducoes;
     std::unordered_set<char> naoTerminais;
     std::unordered_set<char> terminais;
+    mutable std::string erro;
+
     char simboloInicial;
 };
 
