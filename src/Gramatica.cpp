@@ -61,7 +61,7 @@ bool Gramatica::ehValida() const {
       if (prod.size() < 1) {
         std::string erro = "Produção vazia: ";
         erro += prods.naoTerminal;
-        erro += " -> " + join(prods.producoes,  '|');
+        erro += " -> " + prod;
         setErro(erro);
         return false;
       }
@@ -69,7 +69,7 @@ bool Gramatica::ehValida() const {
       if (prod.size() == 2 && !isupper(prod[1])) {
         std::string erro = "Esta gramatica nao eh uma GLD: ";
         erro += prods.naoTerminal;
-        erro += " -> " + join(prods.producoes, '|');
+        erro += " -> " + prod;
         setErro(erro);
         return false;
       }
@@ -104,15 +104,3 @@ const std::unordered_set<char> &Gramatica::getTerminais() const {
 }
 
 char Gramatica::getSimboloInicial() const { return simboloInicial; }
-
-std::string join(const std::vector<std::string> &vec,
-                 const std::string &delimiter = "") {
-  std::ostringstream oss;
-  for (size_t i = 0; i < vec.size(); ++i) {
-    oss << vec[i];
-    if (i != vec.size() - 1) {
-      oss << delimiter;
-    }
-  }
-  return oss.str();
-}

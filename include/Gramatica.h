@@ -34,7 +34,6 @@ public:
 private:
     std::vector<Producao> producoes;
     std::unordered_map<char, std::vector<std::vector<std::string>>> mapaProducoes;
-    std::string join(const std::vector<std::string>& v, char delim) const;
     std::unordered_set<char> naoTerminais;
     std::unordered_set<char> terminais;
     mutable std::string erro;
