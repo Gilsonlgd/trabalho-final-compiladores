@@ -4,4 +4,4 @@ S
 S -> aA
 A -> bB
 B -> cC|#
-C -> a|cC
+C -> a|cB
