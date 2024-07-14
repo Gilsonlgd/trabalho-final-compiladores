@@ -15,13 +15,23 @@ bool Interpretador::reconhecer(const std::string& palavra) {
         for (const auto& prod : gramatica.getProducoes()) {
             if (prod.naoTerminal == atual.back()) {
                 std::string terminais = prod.producao.substr(0, prod.producao.length() - 1);
-                std::cout << "Tentando casar: " << terminais << std::endl;
-                char proximoNaoTerminal = prod.producao.back();
-                
+                char proximoSimbolo = prod.producao.back();
+
                 if (palavra.substr(pos, terminais.length()) == terminais) {
                     std::cout << "Producao: " << prod.naoTerminal << " -> " << prod.producao << std::endl;
                     atual.pop_back();
-                    atual += proximoNaoTerminal;
+                    if (proximoSimbolo != '#') {  // '#' representa produção vazia
+                        if (gramatica.getTerminais().count(proximoSimbolo)) {
+                            if (palavra[pos] == proximoSimbolo) {
+                                pos++;
+                            } else {
+                                std::cerr << "Erro na posicao: " << pos << std::endl;
+                                return false;
+                            }
+                        } else {
+                            atual += proximoSimbolo;
+                        }
+                    }
                     pos += terminais.length();
                     casou = true;
                     break;
@@ -33,5 +43,5 @@ bool Interpretador::reconhecer(const std::string& palavra) {
             return false;
         }
     }
-    return atual == "ε" || atual.empty();  // 'ε' representa produção vazia
+    return atual.empty();  // Verifique se a pilha está vazia no final
 }
