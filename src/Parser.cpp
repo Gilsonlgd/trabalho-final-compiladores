@@ -76,5 +76,9 @@ std::vector<std::string> Parser::split(const std::string& s, char delim) const {
     while (std::getline(tokenStream, token, delim)) {
         tokens.push_back(token);
     }
+
+    for (auto& t : tokens) {
+        std::cout << t << std::endl;
+    }
     return tokens;
 }
