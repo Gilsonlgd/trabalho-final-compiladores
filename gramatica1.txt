@@ -1,6 +1,0 @@
-S A B
-a b c x i o
-S
-S -> abacaxiA|abB
-B -> cB|c
-A -> bA|boboA|#
