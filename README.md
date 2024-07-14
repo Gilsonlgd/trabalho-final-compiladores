@@ -1,4 +1,5 @@
 # Trabalho Final de Compiladores - Gilson Garcia
+
 ## Compilação
 ```bash	
 g++ -o main ./src/main.cpp ./src/Gramatica.cpp ./src/Parser.cpp ./src/Interpretador.cpp
@@ -8,3 +9,7 @@ g++ -o main ./src/main.cpp ./src/Gramatica.cpp ./src/Parser.cpp ./src/Interpreta
 ```bash
 ./main
 ```
+
+## Alunos
+- Gilson Garcia
+- Jhuan Luis
