@@ -1,5 +1,7 @@
 #include "../include/Gramatica.h"
 #include <cctype>
+#include <vector>
+#include <sstream>
 
 Gramatica::Gramatica() : simboloInicial('\0') {}
 
@@ -23,7 +25,8 @@ void Gramatica::defSimboloInicial(char simboloInicial) {
   this->simboloInicial = simboloInicial;
 }
 
-bool Gramatica::addProducao(char naoTerminal, const std::string &producao) {
+bool Gramatica::addProducao(char naoTerminal,
+                            const std::vector<std::string> &producao) {
   if (naoTerminais.find(naoTerminal) == naoTerminais.end()) {
     std::string erro = "Nao terminal invalido: ";
     erro += naoTerminal;
@@ -53,29 +56,31 @@ bool Gramatica::ehValida() const {
   }
 
   // Verifica se todas as produções estão corretas
-  for (const auto &prod : producoes) {
-    if (prod.producao.size() < 1) {
-      std::string erro = "Produção vazia: ";
-      erro += prod.naoTerminal;
-      erro += " -> " + prod.producao;
-      setErro(erro);
-      return false;
-    }
-
-    if (prod.producao.size() == 2 && !isupper(prod.producao[1])) {
-      std::string erro = "Esta gramatica nao eh uma GLD: ";
-      erro += prod.naoTerminal;
-      erro += " -> " + prod.producao;
-      setErro(erro);
-      return false;
-    }
-
-    for (char ch : prod.producao) {
-      if (!naoTerminais.count(ch) && !terminais.count(ch)) {
-        std::string erro = "Simbolo invalido: ";
-        erro += ch;
+  for (const auto &prods : producoes) {
+    for (const auto &prod : prods.producoes) {
+      if (prod.size() < 1) {
+        std::string erro = "Produção vazia: ";
+        erro += prods.naoTerminal;
+        erro += " -> " + join(prods.producoes,  '|');
         setErro(erro);
         return false;
+      }
+
+      if (prod.size() == 2 && !isupper(prod[1])) {
+        std::string erro = "Esta gramatica nao eh uma GLD: ";
+        erro += prods.naoTerminal;
+        erro += " -> " + join(prods.producoes, '|');
+        setErro(erro);
+        return false;
+      }
+
+      for (char ch : prod) {
+        if (!naoTerminais.count(ch) && !terminais.count(ch)) {
+          std::string erro = "Simbolo invalido: ";
+          erro += ch;
+          setErro(erro);
+          return false;
+        }
       }
     }
   }
@@ -99,3 +104,15 @@ const std::unordered_set<char> &Gramatica::getTerminais() const {
 }
 
 char Gramatica::getSimboloInicial() const { return simboloInicial; }
+
+std::string join(const std::vector<std::string> &vec,
+                 const std::string &delimiter = "") {
+  std::ostringstream oss;
+  for (size_t i = 0; i < vec.size(); ++i) {
+    oss << vec[i];
+    if (i != vec.size() - 1) {
+      oss << delimiter;
+    }
+  }
+  return oss.str();
+}

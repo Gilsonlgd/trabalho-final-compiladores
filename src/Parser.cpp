@@ -45,8 +45,10 @@ bool Parser::parse() {
             std::cerr << "Erro ao ler linha: " << linha << std::endl;
             return false;
         }
+
+
         
-        if (!gramatica.addProducao(naoTerminal, producao)) {
+        if (!gramatica.addProducao(naoTerminal, split(producao, '|'))) {
             std::cout << "Erro de especificacao da gramatica." << std::endl;
             std::cout << "Producao invalida: " << naoTerminal << " -> " << producao << std::endl;
             gramatica.printErro();
@@ -65,4 +67,14 @@ bool Parser::parse() {
 
 const Gramatica& Parser::getGramatica() const {
     return gramatica;
+}
+
+std::vector<std::string> Parser::split(const std::string& s, char delim) const {
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(s);
+    while (std::getline(tokenStream, token, delim)) {
+        tokens.push_back(token);
+    }
+    return tokens;
 }

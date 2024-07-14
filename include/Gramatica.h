@@ -11,7 +11,7 @@ class Gramatica {
 public:
     struct Producao {
         char naoTerminal;
-        std::string producao;
+        std::vector<std::string> producoes;
     };
 
     Gramatica();
@@ -20,7 +20,7 @@ public:
     bool addTerminal(char terminal);
     void defSimboloInicial(char simboloInicial);
 
-    bool addProducao(char naoTerminal, const std::string& producao);
+    bool addProducao(char naoTerminal, const std::vector<std::string>& producao);
     bool ehValida() const;
 
     const std::vector<Producao>& getProducoes() const;
@@ -33,7 +33,8 @@ public:
 
 private:
     std::vector<Producao> producoes;
-    std::unordered_map<char, std::vector<std::string>> mapaProducoes;
+    std::unordered_map<char, std::vector<std::vector<std::string>>> mapaProducoes;
+    std::string join(const std::vector<std::string>& v, char delim) const;
     std::unordered_set<char> naoTerminais;
     std::unordered_set<char> terminais;
     mutable std::string erro;
