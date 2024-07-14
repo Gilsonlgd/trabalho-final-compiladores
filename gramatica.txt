@@ -3,5 +3,5 @@ a b c
 S
 S -> aA
 A -> bB
-B -> cC
-C -> a|bS
+B -> cC|#
+C -> a|cC

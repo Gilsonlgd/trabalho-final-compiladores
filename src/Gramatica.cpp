@@ -74,7 +74,7 @@ bool Gramatica::ehValida() const {
             }
 
             for (char ch : prod) {
-                if (!naoTerminais.count(ch) && !terminais.count(ch)) {
+                if (!naoTerminais.count(ch) && !terminais.count(ch) && ch != '#') {
                     std::string erro = "Simbolo invalido: ";
                     erro += ch;
                     setErro(erro);
