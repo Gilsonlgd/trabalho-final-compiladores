@@ -3,6 +3,8 @@
 #include <string>
 #include <queue>
 #include <unordered_set>
+#include <unordered_map>
+#include <vector>
 
 Interpretador::Interpretador(const Gramatica &gramatica)
     : gramatica(gramatica) {}
@@ -14,20 +16,26 @@ bool Interpretador::reconhecer(const std::string &palavra) {
         return false;
     }
 
-    std::queue<std::string> fila;
+    std::queue<std::pair<std::string, std::vector<std::string>>> fila; // pair<estado, caminho>
     std::unordered_set<std::string> visitados; // Para evitar estados repetidos
-    fila.push(std::string(1, gramatica.getSimboloInicial()));
+    fila.push(std::make_pair(std::string(1, gramatica.getSimboloInicial()), std::vector<std::string>()));
 
     std::cout << "Simbolo inicial: " << gramatica.getSimboloInicial() << std::endl;
 
     while (!fila.empty()) {
-        std::string estado = fila.front();
+        std::pair<std::string, std::vector<std::string>> front = fila.front();
+        std::string estado = front.first;
+        std::vector<std::string> path = front.second;
         fila.pop();
 
         std::cout << "Estado atual: " << estado << std::endl;
 
         if (estado == palavra) {
             std::cout << "Palavra reconhecida." << std::endl;
+            std::cout << "Caminho:\n";
+            for (const auto &step : path) {
+                std::cout << step << std::endl;
+            }
             return true;
         }
 
@@ -40,8 +48,6 @@ bool Interpretador::reconhecer(const std::string &palavra) {
                 char naoTerminal = estado[i];
                 const auto& producoes = gramatica.getProducoes();
 
-                std::cout << "Expandindo a partir de: " << naoTerminal << std::endl;
-
                 for (const auto& producao : producoes) {
                     if (producao.naoTerminal == naoTerminal) {
                         for (const auto& alternativa : producao.producoes) {
@@ -53,8 +59,9 @@ bool Interpretador::reconhecer(const std::string &palavra) {
                             }
 
                             if (visitados.find(novoEstado) == visitados.end()) {
-                                std::cout << "Aplicando producao: " << producao.naoTerminal << " -> " << alternativa << std::endl;
-                                fila.push(novoEstado);
+                                std::vector<std::string> novoPath = path;
+                                novoPath.push_back("Aplicando producao: " + std::string(1, producao.naoTerminal) + " -> " + alternativa);
+                                fila.push(std::make_pair(novoEstado, novoPath));
                                 visitados.insert(novoEstado);
                             }
                         }
