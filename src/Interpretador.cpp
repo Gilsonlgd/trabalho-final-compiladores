@@ -9,7 +9,7 @@
 Interpretador::Interpretador(const Gramatica &gramatica)
     : gramatica(gramatica) {}
 
-/* Utilizar um algoritmo de busca em largura para reconhecer as palavras */
+/* Utiliza um algoritmo de busca em largura para reconhecer as palavras */
 bool Interpretador::reconhecer(const std::string &palavra) {
     if (palavra.empty()) {
         std::cerr << "Palavra vazia." << std::endl;
