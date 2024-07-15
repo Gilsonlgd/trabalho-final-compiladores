@@ -16,7 +16,7 @@ bool Interpretador::reconhecer(const std::string &palavra) {
         return false;
     }
 
-    std::queue<std::pair<std::string, std::vector<std::string>>> fila; // pair<estado, caminho>
+    std::queue<std::pair<std::string, std::vector<std::string>>> fila; // pair<estado, caminho> estado e caminho até o estado atual
     std::unordered_set<std::string> visitados; // Para evitar estados repetidos
     fila.push(std::make_pair(std::string(1, gramatica.getSimboloInicial()), std::vector<std::string>()));
 

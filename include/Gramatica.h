@@ -22,6 +22,7 @@ public:
 
     bool addProducao(char naoTerminal, const std::vector<std::string>& producao);
     bool ehValida() const;
+    bool ehGLD(std::string prod) const;
 
     const std::vector<Producao>& getProducoes() const;
     const std::unordered_set<char>& getNaoTerminais() const;

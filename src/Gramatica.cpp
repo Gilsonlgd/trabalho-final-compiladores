@@ -45,6 +45,20 @@ bool Gramatica::addProducao(char naoTerminal, const std::vector<std::string>& pr
     return true;
 }
 
+bool Gramatica::ehGLD(std::string prod) const {
+    bool flag = false;
+    for (char ch : prod) {
+        if (flag) {
+            return false;
+        }
+
+        if (isupper(ch)) {
+            flag = true;
+        }
+    }
+    return true;
+}
+
 bool Gramatica::ehValida() const {
     // Verifica se o símbolo inicial é um não terminal válido
     if (naoTerminais.find(simboloInicial) == naoTerminais.end()) {
@@ -64,8 +78,9 @@ bool Gramatica::ehValida() const {
                 setErro(erro);
                 return false;
             }
-
-            if (prod.size() == 2 && !isupper(prod[1]) && !isdigit(prod[1])) {
+            
+            // Garante que é GLD
+            if (!ehGLD(prod)) {
                 std::string erro = "Esta gramatica nao eh uma GLD: ";
                 erro += prods.naoTerminal;
                 erro += " -> " + prod;
@@ -73,6 +88,7 @@ bool Gramatica::ehValida() const {
                 return false;
             }
 
+            // Confere char por char
             for (char ch : prod) {
                 if (!naoTerminais.count(ch) && !terminais.count(ch) && ch != '#') {
                     std::string erro = "Simbolo invalido: ";
