@@ -31,6 +31,9 @@ B -> a|b|#
 ```
 onde "#" é o símbolo que representa o vazio.
 
+## Formalismo
+O arquivo que contém a gramática que valida as possíveis gramáticas do trabalho está no arquivo "formalismo.txt".
+
 ## Descrição
 Ao executar o programa, o usuário deverá informar a palavra a ser validada. O programa irá informar se a palavra é válida ou não, e caso seja válida, irá informar os movimentos entre as produções da gramática.
 

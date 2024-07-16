@@ -1,0 +1,16 @@
+Obs.: EOF no alfabeto significa o marcador de fim do arquivo (END OF FILE)
+
+G=({a, b, c, d, ..., z, A, B, C, D, ..., Z, 0, 1, 2, 3, 4, ..., 9, |, ->, ' ', \n, EOF, #}, {NT, TR, SP, AP, BP, CP, DP, EP, AL, ED}, SP, PRODS)
+
+PRODS = {
+    NT -> A | B | C | ... | 
+    TR -> a | b | c | ... | z | 0 | 1 | 2 | ... | 9
+    SP -> AAP | BAP | CAP | ... | ZAP
+    AP -> ' 'SP | '\n'BP
+    BP -> aCP | bCP | cCP | ... | zCP | 0CP | 1CP | 2CP | ... | 9CP
+    CP -> ' 'BP | '\n'DP
+    DP -> AEP | BEP | CEP | ... | ZEP
+    EP -> NT' '->' 'AL
+    AL -> TRAL | TR|AL | TR\nED | NT|AL | NT\nED | #|AL | #\nED
+    ED -> EP | EOF 
+}
